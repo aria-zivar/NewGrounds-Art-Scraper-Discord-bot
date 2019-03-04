@@ -88,7 +88,7 @@ async def artists(ctx):
     await ctx.send('`Artist list:`')
     for artist in scraper_data.keys():
         if artist != 'artist_urls':
-            await ctx.send(artist)
+            await ctx.send(artist + "(" + str(len(scraper_data[artist]["deep_links"])) + ")")
 
 
 # Updates the bot's database by running the scraper
