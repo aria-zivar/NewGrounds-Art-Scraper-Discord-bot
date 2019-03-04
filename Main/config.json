@@ -1,0 +1,10 @@
+{
+  "token" : "bot_token_here",
+  "desired_channel_id" : 0,
+  "scraper_data_path" : "path_to_scraper_data.json",
+  "ng_scraper_path" : "path_to_NG_Scraper_folder",
+  "rating-e" : "true",
+  "rating-t" : "true",
+  "rating-m" : "false",
+  "rating-a" : "false"
+}
