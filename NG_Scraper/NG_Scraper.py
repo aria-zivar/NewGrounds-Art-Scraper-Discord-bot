@@ -166,7 +166,7 @@ def sift_through_image_links(fresh_list, artist_to_links, artist_deep_links):
             # First we find the image in the main zone
             image_class = body.find('div', {'class': 'image'})
             if image_class is not None:
-                main_image = image_class.find('a').get('href')
+                main_image = image_class.find('img').get('src')
                 if main_image not in artist_deep_links:
                     artist_deep_links.append(main_image)
                     num_additions += 1
