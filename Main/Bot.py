@@ -54,17 +54,25 @@ def check_if_appropriate_channel(ctx):
 # Gets a random artist from a certain artist in the scraper db
 @bot.command()
 @commands.check(check_if_appropriate_channel)
-async def pic(ctx, *, message: str):
+async def pic(ctx, *args):
     await refresh_scraper_data()
 
-    if message in scraper_data:
-        images = scraper_data[message]["deep_links"]
-        if len(images) < 1:
-            await ctx.send("`No images stored for " + message + " :(`")
+    if len(args) == 1:
+        if args[0] in scraper_data:
+            images = scraper_data[args[0]]["deep_links"]
+            if len(images) < 1:
+                await ctx.send("`No images stored for " + args[1] + " :(`")
+            else:
+                await ctx.send(random.choice(images))
         else:
-            await ctx.send(random.choice(images))
-    else:
-        await ctx.send("`" + message + " is not in the database :(`")
+            await ctx.send("`" + args[0] + " is not in the database :(`")
+    elif len(args) == 0:
+        artist = random.choice(list(scraper_data.keys()))
+        while artist == 'artist_urls':
+            artist = random.choice(list(scraper_data.keys()))
+        await ctx.send(random.choice(scraper_data[artist]["deep_links"]))
+    elif len(args) > 1:
+        await ctx.send("`Please only search for one artist at a time.`")
 
 
 # Adds an artist to the scraper db to be scraped next time the database is updated.
@@ -125,6 +133,7 @@ async def commands(ctx):
                  "```\n"
                  "!commands - Gets you this list again!\n"
                  "!add_artist [url] - Adds an artist to the database. url should be formatted <https://artist.newgrounds.com/art>\n"
+                 "!pic - When called with no arguments, retrieves a completely random image from the database.\n"
                  "!pic [artist_name] - Retrieves a random image from the database by the artist passed in.\n"
                  "!artists - Lists which artists images can be requested based upon who's in the database and the amount of images we have stored.\n"
                  "!update_database - Runs the scraper to update images stored in the database\n"
