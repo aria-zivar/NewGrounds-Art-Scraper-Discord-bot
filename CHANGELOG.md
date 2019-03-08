@@ -2,6 +2,11 @@
 
 ------
 
+#### <u>3/8/2019</u>
+
+- Scraper fixed for edge cases where images added as author comments are saved in undesirable format.
+- Some code cleaning.
+
 #### <u>3/7/2019</u>
 
 - New command...sorta. !pic without any args allows for grabbing a random pic in the database without specifying an artist.

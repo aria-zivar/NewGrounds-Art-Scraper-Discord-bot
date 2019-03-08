@@ -127,7 +127,6 @@ def fetch_art_links(page_soup):
 
 
 # Checks that the incoming images are of the rating we want
-# Comment/uncomment lines based upon current preferences. Removing a category likely requires building list
 def check_rating(art_soup):
     if art_soup.find('h2', {'class': 'rated-e'}) and configData["rating-e"] == "true":
         return True
@@ -176,6 +175,8 @@ def sift_through_image_links(fresh_list, artist_to_links, artist_deep_links):
                 comment_images = author_comments_class.find_all('img')
                 for image in comment_images:
                     aux_image = image.get('data-smartload-src')
+                    if aux_image[0] == '/' and aux_image[1] == '/':
+                        aux_image = 'https://' + aux_image[2:]
                     if aux_image not in artist_deep_links:
                         artist_deep_links.append(aux_image)
                         num_additions += 1
